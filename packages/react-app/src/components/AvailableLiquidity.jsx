@@ -80,16 +80,13 @@ const AvailableLiquidity = () => {
     effect();
   }, []);
   return (
-    <ChainContext.Consumer>
-      {({receiverChain}) => (
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Destination Chain
-                { networkName(receiverChain.chainId) } </TableCell>
-              <TableCell align="right">Asset</TableCell>
-              <TableCell align="right">Exit Liquidity</TableCell>
+              <TableCell> Destination Chain </TableCell>
+              <TableCell align="right"> Asset </TableCell>
+              <TableCell align="right"> Exit Liquidity </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -113,8 +110,6 @@ const AvailableLiquidity = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      )}
-    </ChainContext.Consumer>
   );
 };
 

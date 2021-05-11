@@ -32,8 +32,8 @@ const Modal = ({ disabled }) => {
   const [receiverOpen, setReceiverOpen] = useState(false);
   const [assetOpen, setAssetOpen] = useState(false);
   const [asset, setAsset] = useState(ASSETS[0]);
-  const [senderChain, setSenderChain] = useState(NETWORKS[0]);
-  const [receiverChain, setReceiverChain] = useState(NETWORKS[1]);
+  const [senderChain, setSenderChain] = useState(NETWORKS[1]);
+  const [receiverChain, setReceiverChain] = useState(NETWORKS[0]);
   const [showButton, setShowButton] = useState(!disabled);
 
   const isValidAddress = (input) => {

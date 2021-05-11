@@ -41,6 +41,21 @@ export const NETWORKS = [
 
 
 export const ChainContext = React.createContext({
-  receiverChain: NETWORKS[1],
+  receiverChain: NETWORKS[0],
   setReceiverChain: () => {},
 });
+
+
+export const ChainProvider = ({ children }) => {
+    const [receiverChain, setReceiverChain] = useState(NETWORKS[0]);
+
+    return (
+      <ChainContext.Provider
+        value={{
+          receiverChain
+        }}
+      >
+        {children}
+      </ChainContext.Provider>
+    );
+  };
