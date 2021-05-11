@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,13 +9,16 @@ import { providers, constants, Contract, utils } from 'ethers';
 import { getSignerAddressFromPublicIdentifier } from '@connext/vector-utils';
 import { ERC20Abi } from '@connext/vector-types';
 
+import {  NETWORKS, ChainContext } from 'contexts/ChainContext';
+
 import getRpcUrl from '../lib/rpc';
 import networkName from '../lib/network';
-import { NETWORKS, CONNEXT_ROUTER } from './Modal';
+import {CONNEXT_ROUTER } from './Modal';
 
 const AvailableLiquidity = () => {
   const [tableData, setTableData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
+  const { receiverChain } = useContext(ChainContext);
 
   useEffect(() => {
     const effect = async () => {
@@ -77,34 +80,41 @@ const AvailableLiquidity = () => {
     effect();
   }, []);
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Destination Chain</TableCell>
-            <TableCell align="right">Asset</TableCell>
-            <TableCell align="right">Exit Liquidity</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {loadingData ? (
-            <TableRow>{'Loading...'}</TableRow>
-          ) : (
-            tableData.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {row.chain}
-                </TableCell>
-                <TableCell align="right">{row.assetName}</TableCell>
-                <TableCell align="right">
-                  {parseFloat(row.balance).toFixed(2).toString()}
-                </TableCell>
-              </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <ChainContext.Consumer>
+      {({receiverChain}) => (
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Destination Chain
+                { networkName(receiverChain.chainId) } </TableCell>
+              <TableCell align="right">Asset</TableCell>
+              <TableCell align="right">Exit Liquidity</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {loadingData ? (
+              <TableRow>{'Loading...'}</TableRow>
+            ) : (
+                 tableData.filter(item => item.chain === networkName(receiverChain.chainId) ).map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell component="th" scope="row">
+                      {row.chain}
+                      </TableCell>
+                    <TableCell align="right">
+                      <img src={"/" + row.assetName + ".png"} alt={row.assetName}/>
+                    </TableCell>
+                    <TableCell align="right">
+                      {parseFloat(row.balance).toFixed(2).toString()}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </ChainContext.Consumer>
   );
 };
 

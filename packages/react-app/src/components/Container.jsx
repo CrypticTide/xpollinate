@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext }  from 'react';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { Modal, AvailableLiquidity } from 'components/index';
 
