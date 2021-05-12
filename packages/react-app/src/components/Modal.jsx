@@ -38,6 +38,7 @@ const Modal = ({ disabled }) => {
 
   const isValidAddress = (input) => {
     const valid = input.match(/0x[0-9a-fA-F]{40}/);
+
     return !!valid;
   };
 
