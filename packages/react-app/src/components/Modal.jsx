@@ -33,7 +33,7 @@ const Modal = ({ disabled }) => {
   const [assetOpen, setAssetOpen] = useState(false);
   const [asset, setAsset] = useState(ASSETS[0]);
   const [senderChain, setSenderChain] = useState(NETWORKS[1]);
-  const [receiverChain, setReceiverChain] = useState(NETWORKS[0]);
+  const {receiverChain, saveReceiver} = useContext(ChainContext);
   const [showButton, setShowButton] = useState(!disabled);
 
   const isValidAddress = (input) => {
@@ -70,7 +70,7 @@ const Modal = ({ disabled }) => {
     const r = receiverChain;
 
     setSenderChain(r);
-    setReceiverChain(s);
+    saveReceiver(s);
   };
 
   return (
@@ -120,7 +120,7 @@ const Modal = ({ disabled }) => {
               onClose={() => setReceiverOpen(false)}
               onOpen={() => setReceiverOpen(true)}
               onChange={(event) =>
-                setReceiverChain(NETWORKS[event.target.value])
+                saveReceiver(NETWORKS[event.target.value])
               }
               fullWidth
               value={NETWORKS.findIndex(
