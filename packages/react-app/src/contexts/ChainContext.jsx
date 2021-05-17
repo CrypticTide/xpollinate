@@ -31,28 +31,23 @@ export const NETWORKS = [
       USDT: '0x55d398326f99059fF775485246999027B3197955',
     },
   },
-  // {
-  //   assetId: '0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047',
-  //   chainName: 'Huobi ECO Chain Mainnet',
-  //   chainId: 128,
-  //   assetName: 'HUSD',
-  // },
 ];
 
 
 export const ChainContext = React.createContext({
-  receiverChain: NETWORKS[1],
+  receiverChain: NETWORKS[0],
   setReceiverChain: () => {},
 });
 
 
 export const ChainProvider = ({ children }) => {
-    const [receiverChain, setReceiverChain] = useState(NETWORKS[1]);
+    const [receiverChain, setReceiverChain] = useState(NETWORKS[0]);
 
 
-       const saveReceiver = (values) => {
-         setReceiverChain(values)
-       };
+
+         const saveReceiver = useCallback(async (values) => {
+           setReceiverChain(values)
+         }, []);
 
 
     return (

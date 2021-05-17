@@ -20,7 +20,6 @@ import getRpcUrl from 'lib/rpc';
 export const CONNEXT_ROUTER =
   'vector52rjrwRFUkaJai2J4TrngZ6doTUXGZhizHmrZ6J15xVv4YFgFC';
 
-
 export const ASSETS = ['DAI', 'USDC', 'USDT'];
 
 const Modal = ({ disabled }) => {
